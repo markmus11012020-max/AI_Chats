@@ -20,6 +20,7 @@ LABELS = {
     "summary": "📝 Структурирование и анализ текста / Summary Prompt",
     "code": "💻 Генерация структуры кода / Code structure",
     "planning": "📋 Планирование задач проекта / Task Planning Prompt",
+    "chains": "🔗 Генератор Python-кода (Chains)",
     "base": "💬 Базовый чат (ТЗ)",
 }
 
