@@ -3,207 +3,209 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>AI Chats — Презентация проекта</title>
+<title>AllTokens Chat — Презентация</title>
 <style>
-  * { box-sizing: border-box; margin: 0; padding: 0; }
-  body {
-    font-family: 'Segoe UI', Tahoma, sans-serif;
-    background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
-    color: #f5f5f5;
-    line-height: 1.6;
-  }
-  .slide {
-    min-height: 100vh;
-    padding: 60px 8%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    border-bottom: 1px solid rgba(255,255,255,0.1);
-  }
-  h1 { font-size: 3.5em; margin-bottom: 20px; background: linear-gradient(90deg,#00d2ff,#3a47d5); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-  h2 { font-size: 2.2em; margin-bottom: 25px; color: #00d2ff; }
-  h3 { font-size: 1.4em; margin: 15px 0 10px; color: #ffd86b; }
-  p, li { font-size: 1.15em; margin-bottom: 12px; }
-  ul { margin-left: 30px; }
-  .card {
-    background: rgba(255,255,255,0.06);
-    border-left: 4px solid #00d2ff;
-    padding: 20px 25px;
-    border-radius: 8px;
-    margin: 15px 0;
-  }
-  .grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 25px;
-    margin-top: 30px;
-  }
-  .feature {
-    background: rgba(255,255,255,0.07);
-    padding: 25px;
-    border-radius: 12px;
-    border-top: 3px solid #3a47d5;
-  }
-  .feature h3 { color: #00d2ff; }
-  .tag {
-    display: inline-block;
-    background: #3a47d5;
-    color: #fff;
-    padding: 4px 12px;
-    border-radius: 20px;
-    font-size: 0.85em;
-    margin: 4px;
-  }
-  .screenshot {
-    max-width: 100%;
-    border-radius: 12px;
-    box-shadow: 0 10px 40px rgba(0,0,0,0.5);
-    margin-top: 20px;
-  }
-  .two-col {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 30px;
-    align-items: center;
-  }
-  @media (max-width: 768px) { .two-col { grid-template-columns: 1fr; } h1 { font-size: 2em; } h2 { font-size: 1.6em; } }
-  .footer { text-align: center; padding: 30px; opacity: 0.6; }
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',Tahoma,sans-serif;background:linear-gradient(135deg,#0f0c29,#302b63,#24243e);color:#f5f5f5;line-height:1.6}
+.slide{min-height:100vh;padding:60px 8%;display:flex;flex-direction:column;justify-content:center;border-bottom:1px solid rgba(255,255,255,.1)}
+h1{font-size:3em;margin-bottom:20px;background:linear-gradient(90deg,#00d2ff,#3a47d5);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+h2{font-size:2em;margin-bottom:20px;color:#00d2ff}
+h3{font-size:1.3em;margin:12px 0 8px;color:#ffd86b}
+p,li{font-size:1.1em;margin-bottom:10px}
+ul{margin-left:28px}
+.card{background:rgba(255,255,255,.06);border-left:4px solid #00d2ff;padding:18px 22px;border-radius:8px;margin:12px 0}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:20px;margin-top:25px}
+.feature{background:rgba(255,255,255,.07);padding:22px;border-radius:12px;border-top:3px solid #3a47d5}
+.feature h3{color:#00d2ff}
+.tag{display:inline-block;background:#3a47d5;color:#fff;padding:4px 12px;border-radius:20px;font-size:.85em;margin:4px}
+.screenshot{max-width:100%;border-radius:12px;box-shadow:0 10px 40px rgba(0,0,0,.5);margin-top:15px}
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:30px;align-items:center}
+@media(max-width:768px){.two-col{grid-template-columns:1fr}h1{font-size:2em}h2{font-size:1.5em}}
+.footer{text-align:center;padding:25px;opacity:.6}
+code{background:rgba(255,255,255,.1);padding:2px 6px;border-radius:4px;color:#9be7ff;font-family:Consolas,monospace}
+pre{font-family:Consolas,monospace;color:#9be7ff;white-space:pre-wrap;font-size:.95em}
+.rt{display:inline-block;padding:5px 12px;border-radius:8px;margin:3px;font-size:.95em}
+.rt.s{background:#1f4068}.rt.c{background:#6a3d9a}.rt.p{background:#2d6a4f}
 </style>
 </head>
+
+<section class="slide">
+<h1>💬 AllTokens Chat</h1>
+<p style="font-size:1.3em;opacity:.9">Мультимодельный чат с LLM через AllTokens API + система ролей</p>
+<p style="margin-top:25px;font-size:1.05em;opacity:.8">Консольный клиент и веб-интерфейс на Streamlit со стримингом,<br>контекстом диалога, 3 ролями-промптами и настройкой температуры.</p>
+<div style="margin-top:25px">
+<span class="tag">Python 3.10+</span>
+<span class="tag">OpenAI SDK</span>
+<span class="tag">Streamlit</span>
+<span class="tag">Streaming</span>
+<span class="tag">AllTokens.ru</span>
+<span class="tag">3 роли</span>
+
+<section class="slide">
+<h2>🎯 Цель проекта</h2>
+<div class="card"><p>Разработка консольного скрипта и веб-интерфейса для ведения непрерывного диалога с нейросетями через API AllTokens с возможностью переключения системных промптов под разные задачи.</p></div>
+<h3>Ключевые задачи:</h3>
+<ul>
+<li>Подключение к OpenAI-совместимому API (https://alltokens.ru/api/v1)</li>
+<li>Выбор модели из фиксированного списка (6 моделей)</li>
+<li>Сохранение контекста переписки между запросами</li>
+<li>Потоковый вывод ответов в реальном времени (стриминг)</li>
+<li>Три готовые роли: анализ текста, структура кода, планирование</li>
+<li>Настройка температуры через слайдер (0.0–2.0)</li>
+<li>Два интерфейса: терминал и веб</li>
+</ul>
+</section>
+</div>
+
+<section class="slide">
+<h2>⚡ Возможности</h2>
+<div class="grid">
+<div class="feature"><h3>💬 Контекстный диалог</h3><p>История сообщений сохраняется — ИИ помнит весь разговор и учитывает системный промпт.</p></div>
+<div class="feature"><h3>🌊 Стриминг</h3><p><code>stream=True</code> — ответы появляются посимвольно в реальном времени.</p></div>
+<div class="feature"><h3>🎭 3 роли-промпта</h3><p>Вкладки: Summary, Code structure, Task Planning.</p></div>
+<div class="feature"><h3>🌡️ Температура</h3><p>Слайдер 0.0–2.0: от точных до креативных ответов.</p></div>
+<div class="feature"><h3>🤖 6 моделей</h3><p>Cohere, Pareto, MiniMax M3, Gemini Flash, GPT-OSS, Claude Haiku 4.5.</p></div>
+<div class="feature"><h3>🖥 Два UI</h3><p>Консольный <code>chat.py</code> и веб <code>app.py</code> на Streamlit.</p></div>
+</div>
+</section>
+</section>
+
+<section class="slide">
+<h2>🎭 Система ролей</h2>
+<p>Промпты загружаются из <code>.md</code> парсером <code>prompts.py</code> и подставляются как <code>system</code>-сообщение.</p>
+<div class="grid">
+<div class="feature"><h3><span class="rt s">📝 Summary</span></h3><p><strong>Структурирование и анализ текста</strong></p><p>Резюме, ключевые тезисы, аналитические выжимки.</p></div>
+<div class="feature"><h3><span class="rt c">💻 Code</span></h3><p><strong>Генерация структуры кода</strong></p><p>Архитектура, модули, паттерны, дерево файлов.</p></div>
+<div class="feature"><h3><span class="rt p">📋 Planning</span></h3><p><strong>Планирование задач</strong></p><p>Декомпозиция, риски, таймлайн, ресурсы.</p></div>
+</div>
+<div class="card" style="margin-top:20px"><strong>Как работает:</strong> вкладка роли → <code>✅ Использовать эту роль</code> → системный промпт подставляется в начало <code>messages</code>.</div>
+</section>
 <body>
-
-<section class="slide">
-  <h1>🤖 AI Chats</h1>
-  <p style="font-size:1.4em; opacity:0.9;">Мультимодельный чат с LLM через AllTokens API</p>
-  <p style="margin-top:30px; font-size:1.1em; opacity:0.8;">
-    Консольный клиент и веб-интерфейс на Streamlit с поддержкой стриминга,<br>
-    контекста диалога и 6 нейросетей.
-  </p>
-  <div style="margin-top:30px;">
-    <span class="tag">Python 3.8+</span>
-    <span class="tag">OpenAI SDK</span>
-    <span class="tag">Streamlit</span>
-    <span class="tag">Streaming</span>
-    <span class="tag">AllTokens.ru</span>
-  </div>
-</section>
-
-<section class="slide">
-  <h2>🎯 Цель проекта</h2>
-  <div class="card">
-    <p>Разработка консольного скрипта и веб-интерфейса для ведения непрерывного диалога с нейросетями через API AllTokens.</p>
-  </div>
-  <h3>Ключевые задачи:</h3>
-  <ul>
-    <li>Подключение к OpenAI-совместимому API (https://alltokens.ru/api/v1)</li>
-    <li>Выбор модели из фиксированного списка</li>
-    <li>Сохранение контекста переписки</li>
-    <li>Потоковый вывод ответов в реальном времени</li>
-    <li>Два интерфейса: терминал и веб</li>
-  </ul>
-</section>
-
-<section class="slide">
-  <h2>⚡ Возможности</h2>
-  <div class="grid">
-    <div class="feature">
-      <h3>💬 Контекстный диалог</h3>
-      <p>История сообщений сохраняется между запросами — ИИ помнит весь разговор.</p>
-    </div>
-    <div class="feature">
-      <h3>🌊 Стриминг</h3>
-      <p>Ответы появляются посимвольно в реальном времени — без ожидания полной генерации.</p>
-    </div>
-    <div class="feature">
-      <h3>🎛 6 моделей</h3>
-      <p>Cohere, AllTokens Pareto, MiniMax M3, Gemini Flash, GPT-OSS, Claude Haiku.</p>
-    </div>
-    <div class="feature">
-      <h3>🖥 Два UI</h3>
-      <p>Удобный консольный скрипт <code>chat.py</code> и веб-интерфейс <code>app.py</code>.</p>
-    </div>
-  </div>
-</section>
-
-<section class="slide">
-  <h2>🖼 Streamlit UI</h2>
-  <div class="two-col">
-    <div>
-      <h3>Веб-интерфейс на Streamlit</h3>
-      <ul>
-        <li><code>st.chat_input</code> + <code>st.chat_message</code></li>
-        <li>История и выбор модели в <code>st.session_state</code></li>
-        <li>Потоковый рендер через <code>st.empty()</code></li>
-        <li>Боковая панель с настройками</li>
-        <li>Кнопка очистки диалога</li>
-      </ul>
-    </div>
-    <div>
-      <img class="screenshot" src="screenshots/Результат Stremlit.png" alt="Streamlit UI">
-    </div>
-  </div>
-</section>
-
-<section class="slide">
-  <h2>🤖 Ответы моделей</h2>
-  <div class="two-col">
-    <div>
-      <img class="screenshot" src="screenshots/результат llm6.png" alt="Пример ответа модели">
-    </div>
-    <div>
-      <h3>Пример работы</h3>
-      <p>Модель Claude Haiku 4.5 отвечает на вопрос пользователя с учётом контекста и системного промпта «Отвечай кратко и по делу».</p>
-      <div class="card">
-        <strong>Параметры запроса:</strong>
-        <ul style="margin-top:10px;">
-          <li>model: anthropic/claude-haiku-4.5</li>
-          <li>stream: true</li>
-          <li>messages: [system + user + assistant...]</li>
-        </ul>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section class="slide">
-  <h2>📁 Структура проекта</h2>
-  <div class="card">
-<pre style="font-family:Consolas,monospace; color:#9be7ff;">
-HW220726/
-├── chat.py            # консольный клиент
-├── app.py             # Streamlit-интерфейс
-├── run_bot.py         # запуск веб-UI
-├── requirements.txt   # зависимости
-├── .env               # ALLTOKENS_API_KEY
-├── .gitignore
-└── screenshots/       # скриншоты работы
-</pre>
-  </div>
-  <h3>Технологии:</h3>
-  <p>
-    <span class="tag">openai==1.x</span>
-    <span class="tag">python-dotenv</span>
-    <span class="tag">streamlit>=1.30</span>
-    <span class="tag">subprocess</span>
-  </p>
-</section>
-
-<section class="slide">
-  <h2>✅ Итог</h2>
-  <div class="grid">
-    <div class="feature">
-      <h3>Готово</h3>
-      <p>✓ Консольный чат со стримингом<br>✓ Веб-интерфейс Streamlit<br>✓ 6 моделей на выбор<br>✓ Контекст диалога<br>✓ Код в GitHub</p>
-    </div>
-    <div class="feature">
-      <h3>Репозиторий</h3>
-      <p>github.com/markmus11012020-max/AI_Chats</p>
-      <p style="margin-top:15px;">Все файлы закоммичены и отправлены в удалённый репозиторий.</p>
-    </div>
-  </div>
-</section>
-
-<div class="footer">© 2026 AI Chats · Презентация проекта</div>
-
 </body>
+
+<section class="slide">
+<h2>🖼 Streamlit UI — общий вид</h2>
+<div class="two-col">
+<div>
+<h3>Веб-интерфейс</h3>
+<ul>
+<li><code>st.tabs</code> — переключение ролей</li>
+<li><code>st.chat_input</code> + <code>st.chat_message</code></li>
+<li><code>st.session_state</code> — история, модель, температура</li>
+<li><code>st.empty()</code> — потоковый рендер</li>
+<li><code>st.sidebar</code> — настройки</li>
+<li><code>st.slider</code> — температура</li>
+<li><code>🗑️ Очистить чат</code> — сброс истории</li>
+<li><code>st.expander</code> — описание роли</li>
+</ul>
+</div>
+<div><img class="screenshot" src="скрин1.png" alt="Streamlit UI — общий вид"></div>
+</div>
+</section>
+
+<section class="slide">
+<h2>🖼 Боковая панель настроек</h2>
+<div class="two-col">
+<div><img class="screenshot" src="скрин2.png" alt="Streamlit UI — настройки"></div>
+<div>
+<h3>⚙️ Сайдбар</h3>
+<ul>
+<li><strong>Модель</strong> — выпадающий список из 6 LLM</li>
+<li><strong>Температура</strong> — слайдер 0.0–2.0, шаг 0.05</li>
+<li><strong>Очистить чат</strong> — сохраняет активную роль</li>
+<li><strong>Base URL</strong> — отображается для отладки</li>
+</ul>
+<div class="card"><strong>Заголовок страницы:</strong> <code>💬 Чат с ИИ</code> — подпись показывает модель и температуру.</div>
+</div>
+
+<section class="slide">
+<h2>🖼 Стриминг ответа модели</h2>
+<div class="two-col">
+<div>
+<h3>Пример работы</h3>
+<p>Вкладка активной роли, диалог пользователя с моделью и потоковый вывод ответа в реальном времени.</p>
+<div class="card"><strong>Параметры запроса:</strong>
+<ul style="margin-top:8px">
+<li><code>model</code>: выбранная LLM</li>
+<li><code>stream</code>: <code>true</code></li>
+<li><code>temperature</code>: 0.0–2.0</li>
+<li><code>messages</code>: [system + user + assistant…]</li>
+</ul></div>
+<p style="margin-top:12px">Курсор <code>▌</code> показывает, что ответ ещё генерируется.</p>
+</div>
+<div><img class="screenshot" src="скрин3.png" alt="Стриминг ответа модели"></div>
+</div>
+</section>
+
+<section class="slide">
+<h2>🤖 Сравнение моделей</h2>
+<div class="two-col">
+<div><img class="screenshot" src="screenshots/результат llm6.png" alt="Ответ Claude Haiku 4.5"></div>
+<div>
+<h3>Claude Haiku 4.5</h3>
+<p>Ответ с учётом контекста и системного промпта роли.</p>
+<div class="card"><strong>Сравнение моделей в проекте:</strong>
+<ul style="margin-top:8px">
+<li><code>результат llm1.png</code> — Cohere North Mini</li>
+<li><code>результат llm2.png</code> — AllTokens Pareto</li>
+<li><code>результат 3.png</code> — Gemini 3 Flash</li>
+<li><code>результат llm6.png</code> — Claude Haiku 4.5</li>
+</ul></div>
+</div>
+</div>
+</section>
+
+<section class="slide">
+<h2>📁 Структура проекта</h2>
+<div class="card"><pre>D:\LLM chat/
+├── app.py                     # Streamlit UI (роли + температура)
+├── chat.py                    # Консольная версия
+├── run_bot.py                 # Запуск Streamlit (порт 8501)
+├── prompts.py                 # Парсер промптов из .md
+├── Summary Prompt.md          # Роль: анализ текста
+├── Сode structure.md          # Роль: структура кода
+├── Task Planning Prompt.md    # Роль: планирование
+├── requirements.txt           # openai, python-dotenv, streamlit
+├── .env                       # ALLTOKENS_API_KEY
+├── .gitignore
+├── screenshots/               # Скриншоты работы
+├── start.bat                  # Запуск под Windows
+└── presentation.html          # Эта презентация</pre></div>
+<h3>Технологии:</h3>
+<p>
+<span class="tag">openai>=1.0</span>
+<span class="tag">python-dotenv>=1.0</span>
+<span class="tag">streamlit>=1.30</span>
+<span class="tag">subprocess</span>
+<span class="tag">re / json</span>
+</p>
+</section>
+
+<section class="slide">
+<h2>🔧 Как это работает</h2>
+<div class="card"><pre>1. Пользователь выбирает вкладку роли → «Использовать эту роль»
+2. prompts.py парсит .md файл → извлекает JSON из &lt;code&gt; блока
+3. apply_role() подставляет system-промпт в messages[0]
+4. Пользователь вводит запрос → st.chat_input
+5. OpenAI client.chat.completions.create(stream=True)
+6. Чанки выводятся через st.empty() посимвольно
+7. Полный ответ сохраняется в session_state.messages</pre></div>
+<h3>Ключевые модули:</h3>
+<ul>
+<li><code>prompts.py</code> — <code>load_all()</code>, regex-парсинг <code>&lt;code&gt;</code></li>
+<li><code>app.py</code> — UI, session_state, стриминг, обработка ошибок API</li>
+<li><code>chat.py</code> — консольная версия с тем же функционалом</li>
+</ul>
+
+<section class="slide">
+<h2>✅ Итог</h2>
+<div class="grid">
+<div class="feature"><h3>Готово</h3><p>✓ Консольный чат со стримингом<br>✓ Веб-интерфейс Streamlit<br>✓ 3 переключаемые роли-промпта<br>✓ Слайдер температуры (0.0–2.0)<br>✓ 6 моделей на выбор<br>✓ Контекст диалога<br>✓ Парсинг промптов из .md</p></div>
+<div class="feature"><h3>Преимущества</h3><p>✓ Смена роли одним кликом без потери истории<br>✓ Промпты в отдельных .md — легко редактировать<br>✓ Обработка ошибок API в UI и консоли<br>✓ Код в GitHub</p></div>
+</div>
+</section>
+<div class="footer">© 2026 AllTokens Chat · Презентация проекта</div>
+</section>
+</div>
+</section>
 </html>
