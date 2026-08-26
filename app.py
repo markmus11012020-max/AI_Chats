@@ -10,6 +10,8 @@ except ImportError:
 import streamlit as st
 from openai import OpenAI
 
+from prompts import LABELS, default_role, load_all
+
 API_KEY = os.getenv("ALLTOKENS_API_KEY", "")
 BASE_URL = os.getenv("ALLTOKENS_BASE_URL", "https://alltokens.ru/api/v1")
 
@@ -24,15 +26,32 @@ MODELS = [
 
 st.set_page_config(page_title="AllTokens Chat", page_icon="💬", layout="wide")
 
+PROMPTS = load_all()
+ROLE_KEYS = list(LABELS.keys())
+
 if "messages" not in st.session_state:
-    st.session_state.messages = [{"role": "system", "content": "Отвечай кратко и по делу."}]
+    st.session_state.messages = [{"role": "system", "content": default_role()}]
+if "active_role" not in st.session_state:
+    st.session_state.active_role = "summary"
 if "model" not in st.session_state:
     st.session_state.model = MODELS[0]
+if "temperature" not in st.session_state:
+    st.session_state.temperature = 0.7
 if "client" not in st.session_state:
     if not API_KEY:
         st.error("Не задан ALLTOKENS_API_KEY в .env")
         st.stop()
     st.session_state.client = OpenAI(api_key=API_KEY, base_url=BASE_URL)
+
+
+def apply_role(role_key: str) -> None:
+    """Подставить системный промпт выбранной роли в начало истории."""
+    new_system = PROMPTS[role_key]["role"]
+    if st.session_state.messages and st.session_state.messages[0]["role"] == "system":
+        st.session_state.messages[0]["content"] = new_system
+    else:
+        st.session_state.messages.insert(0, {"role": "system", "content": new_system})
+
 
 with st.sidebar:
     st.title("⚙️ Настройки")
@@ -41,13 +60,35 @@ with st.sidebar:
         MODELS,
         index=MODELS.index(st.session_state.model),
     )
+    st.session_state.temperature = st.slider(
+        "Температура",
+        min_value=0.0,
+        max_value=2.0,
+        value=float(st.session_state.temperature),
+        step=0.05,
+        help="0 = точные ответы, 2 = максимально креативные",
+    )
     if st.button("🗑️ Очистить чат"):
-        st.session_state.messages = [{"role": "system", "content": "Отвечай кратко и по делу."}]
+        st.session_state.messages = [{"role": "system", "content": PROMPTS[st.session_state.active_role]["role"]}]
         st.rerun()
     st.caption(f"Base URL: {BASE_URL}")
 
 st.title("💬 Чат с ИИ")
-st.caption(f"Модель: **{st.session_state.model}**")
+st.caption(f"Модель: **{st.session_state.model}** · Температура: **{st.session_state.temperature}**")
+
+tabs = st.tabs([LABELS[k] for k in ROLE_KEYS])
+for tab, key in zip(tabs, ROLE_KEYS):
+    with tab:
+        prompt_info = PROMPTS[key]
+        with st.expander("ℹ️ Описание роли", expanded=False):
+            st.markdown(f"**{prompt_info['name']}**")
+            st.caption(prompt_info["description"])
+        if st.button(f"✅ Использовать эту роль", key=f"use_{key}", use_container_width=True):
+            st.session_state.active_role = key
+            apply_role(key)
+            st.rerun()
+        if st.session_state.active_role == key:
+            st.success(f"Активная роль: {prompt_info['name']}")
 
 for msg in st.session_state.messages:
     if msg["role"] == "system":
@@ -70,6 +111,7 @@ if prompt := st.chat_input("Введите сообщение..."):
             stream = st.session_state.client.chat.completions.create(
                 model=st.session_state.model,
                 messages=st.session_state.messages,
+                temperature=st.session_state.temperature,
                 stream=True,
             )
             for chunk in stream:
