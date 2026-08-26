@@ -6,10 +6,57 @@ set "PROJECT_DIR=%~dp0"
 cd /d "%PROJECT_DIR%"
 
 set "VENV_PY=%PROJECT_DIR%venv\Scripts\python.exe"
+set "PORT=8501"
 
 echo ============================================
 echo   AllTokens Chat - быстрый запуск
 echo ============================================
+echo.
+
+REM === Сброс предыдущего запуска и очистка кэша ========================
+echo [RESET] Останавливаю предыдущие процессы Streamlit/Python...
+
+REM 1) Убиваем процессы, слушающие порт Streamlit
+set "KILLED=0"
+for /f "tokens=5" %%P in ('netstat -ano ^| findstr /R "[: ]%PORT% .*LISTENING"') do (
+    taskkill /F /PID %%P >nul 2>&1
+    if not errorlevel 1 set "KILLED=1"
+)
+
+REM 2) Убиваем все процессы streamlit на всякий случай
+taskkill /F /IM streamlit.exe >nul 2>&1
+
+REM 3) Убиваем python.exe, оставшиеся от прошлого запуска из нашего venv
+for /f "delims=" %%P in ('
+    powershell -NoProfile -Command "$vw=[Environment]::GetEnvironmentVariable('VIRTUAL_ENV','Process'); Get-CimInstance Win32_Process -Filter \"Name='python.exe'\" | Where-Object { $_.CommandLine -and $_.CommandLine -match [regex]::Escape($vw) } | ForEach-Object { $_.ProcessId }"
+') do (
+    if not "%%P"=="" taskkill /F /PID %%P >nul 2>&1
+)
+
+REM Даём ОС освободить порт
+timeout /t 2 /nobreak >nul
+
+REM === Очистка кэша ====================================================
+echo [CLEAN] Очищаю кэш (__pycache__, .streamlit, .pytest_cache)...
+
+REM Python bytecode
+for /d /r "%PROJECT_DIR%" %%D in (__pycache__) do @if exist "%%D" rd /s /q "%%D" >nul 2>&1
+del /s /q "%PROJECT_DIR%*.pyc" >nul 2>&1
+
+REM Streamlit cache
+if exist "%PROJECT_DIR%\.streamlit\cache" rd /s /q "%PROJECT_DIR%\.streamlit\cache" >nul 2>&1
+if exist "%USERPROFILE%\.streamlit\cache" rd /s /q "%USERPROFILE%\.streamlit\cache" >nul 2>&1
+
+REM Прочие кэши
+if exist "%PROJECT_DIR%\.pytest_cache" rd /s /q "%PROJECT_DIR%\.pytest_cache" >nul 2>&1
+if exist "%PROJECT_DIR%\.ruff_cache"     rd /s /q "%PROJECT_DIR%\.ruff_cache"     >nul 2>&1
+if exist "%PROJECT_DIR%\.mypy_cache"     rd /s /q "%PROJECT_DIR%\.mypy_cache"     >nul 2>&1
+
+if "%KILLED%"=="1" (
+    echo [OK]    Старый процесс на порту %PORT% остановлен.
+) else (
+    echo [OK]    Активных процессов не было.
+)
 echo.
 
 REM --- Проверка venv ---------------------------------------------------
@@ -66,7 +113,7 @@ echo.
 echo [START] Запускаю Streamlit на http://localhost:8501
 echo         Для остановки нажмите Ctrl+C
 echo.
-"%VENV_PY%" -m streamlit run app.py --server.port 8501 --server.headless false --browser.gatherUsageStats false
+"%VENV_PY%" -m streamlit run app.py --server.port %PORT% --server.headless false --browser.gatherUsageStats false
 goto :end
 
 :console

@@ -14,6 +14,7 @@ FILES = {
     "code": "Сode structure.md",
     "planning": "Task Planning Prompt.md",
     "base": None,  # базовый чат из ТЗ, system-промпт задаётся вручную
+    "chains": None,  # роль для вкладки Chains; реальная логика в chains.py
 }
 
 LABELS = {
@@ -43,6 +44,13 @@ def load_prompt(key: str) -> dict:
             "name": "Базовый чат (ТЗ)",
             "role": BASE_SYSTEM_PROMPT,
             "description": "Чат из исходного ТЗ: системный промпт «Отвечай кратко и по делу.»",
+        }
+    if key == "chains":
+        return {
+            "id": "chains",
+            "name": "Генератор Python-кода (Chains)",
+            "role": "Ты — генератор Python-кода. Описывай план решения по шагам.",
+            "description": "Вкладка Chains: 4-звенная цепочка analysis → tools → code → review. Логика реализована в chains.py.",
         }
     path = PROMPTS_DIR / FILES[key]
     data = json.loads(_load_raw(path))
