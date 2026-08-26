@@ -13,13 +13,17 @@ FILES = {
     "summary": "Summary Prompt.md",
     "code": "Сode structure.md",
     "planning": "Task Planning Prompt.md",
+    "base": None,  # базовый чат из ТЗ, system-промпт задаётся вручную
 }
 
 LABELS = {
     "summary": "📝 Структурирование и анализ текста / Summary Prompt",
     "code": "💻 Генерация структуры кода / Code structure",
     "planning": "📋 Планирование задач проекта / Task Planning Prompt",
+    "base": "💬 Базовый чат (ТЗ)",
 }
+
+BASE_SYSTEM_PROMPT = "Отвечай кратко и по делу."
 
 _CODE_RE = re.compile(r"<code[^>]*>(.*?)</code>", re.DOTALL | re.IGNORECASE)
 
@@ -32,6 +36,13 @@ def _load_raw(path: Path) -> str:
 
 
 def load_prompt(key: str) -> dict:
+    if key == "base":
+        return {
+            "id": "base",
+            "name": "Базовый чат (ТЗ)",
+            "role": BASE_SYSTEM_PROMPT,
+            "description": "Чат из исходного ТЗ: системный промпт «Отвечай кратко и по делу.»",
+        }
     path = PROMPTS_DIR / FILES[key]
     data = json.loads(_load_raw(path))
     return {
